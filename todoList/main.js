@@ -3,6 +3,9 @@ let addTxt = document.querySelector('.addTxt');
 let allNum = document.querySelector('.allValue');
 let contiNum = document.querySelector('.contiValue');
 let endNum = document.querySelector('.endValue');
+let allBtn = document.querySelector('.all');
+let contiBtn = document.querySelector('.continue');
+let endBtn = document.querySelector('.end');
 let itemList = document.querySelector('.items');
 let itemAll = document.querySelectorAll('.item');
 let delBtns = document.querySelectorAll('.delBtn')
@@ -29,7 +32,8 @@ addBtn.addEventListener('click', () => {
         itemList.appendChild(list);
         let newEBtn = document.createElement("button");
         newEBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
-        newEBtn.className = `${index}`;
+        newEBtn.id = `${index}`;
+        newEBtn.className = "editBtn";
         list.insertBefore(newEBtn, list.childNodes[4]);
 
         checkCount();
@@ -40,7 +44,7 @@ addBtn.addEventListener('click', () => {
         deleteItem();
         doneItem();
         newEBtn.addEventListener('click', () => {
-            editItem(newEBtn.className);
+            editItem(newEBtn.id);
         })
     }
 })
@@ -64,6 +68,7 @@ function editItem(name) {
 }
 
 function doneItem() {
+    editBtns = document.querySelectorAll('.editBtn');
     doneBtns = document.querySelectorAll('.doneBtn');
     let listdone = document.querySelectorAll('.item');
 
@@ -104,3 +109,43 @@ function checkCount() {
     contiNum.innerHTML = contiCount;
     endNum.innerHTML = endCount;
 }
+
+
+
+//조회 가능
+allBtn.addEventListener('click', () => {
+    itemAll = document.querySelectorAll('.item');
+    doneBtns = document.querySelectorAll('.doneBtn');
+
+    for (let i = 0; i < itemAll.length; i++) {
+        itemAll[i].style.display = "";
+    }
+})
+
+contiBtn.addEventListener('click', () => {
+    itemAll = document.querySelectorAll('.item');
+    doneBtns = document.querySelectorAll('.doneBtn');
+
+    for (let i = 0; i < itemAll.length; i++) {
+        if(doneBtns[i].checked == true){
+            itemAll[i].style.display = "none";
+        }
+        else{
+            itemAll[i].style.display = "";
+        }
+    }
+})
+
+endBtn.addEventListener('click', () => {
+    itemAll = document.querySelectorAll('.item');
+    doneBtns = document.querySelectorAll('.doneBtn');
+
+    for (let i = 0; i < itemAll.length; i++) {
+        if(doneBtns[i].checked == true){
+            itemAll[i].style.display = "";
+        }
+        else{
+            itemAll[i].style.display = "none";
+        }
+    }
+})
