@@ -10,28 +10,38 @@ let editBtns = document.querySelectorAll('.editBtn');
 let doneBtns = document.querySelectorAll('.doneBtn');
 let itemContents = document.querySelectorAll('.itemContent');
 
+let index = 0;
 /* 목록 추가 */
 addBtn.addEventListener('click', () => {
     if(addTxt.value === ""){
         alert('할 일을 입력해주세요!');
     }
     else{
+        //목록 생성
         let list = document.createElement('li');
         list.setAttribute("class", "item");
         list.innerHTML = `
             <input type="checkbox" name="done" id="done" class="doneBtn">
             <span class="itemContent">${addTxt.value}</span>
-            <button class="editBtn"><i class="fa-solid fa-pencil"></i></button>
             <button class="delBtn"><i class="fa-solid fa-trash"></i></button>
         `;
-
+        //수정 버튼 추가
         itemList.appendChild(list);
+        let newEBtn = document.createElement("button");
+        newEBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
+        newEBtn.className = `${index}`;
+        list.insertBefore(newEBtn, list.childNodes[4]);
+
         checkCount();
         addTxt.value = '';
+        index++;
 
+        //event
         deleteItem();
-        editItem();
         doneItem();
+        newEBtn.addEventListener('click', () => {
+            editItem(newEBtn.className);
+        })
     }
 })
 
@@ -47,14 +57,10 @@ function deleteItem() {
 
 }
 
-function editItem() {
-    editBtns = document.querySelectorAll('.editBtn');
-    itemContents = document.querySelectorAll('.itemContent');
-
-    editBtns.forEach((editBtn, index) => editBtn.addEventListener('click', () => {
-        let newText = prompt("입력하세요");
-        itemContents[index].innerHTML = newText;
-    }))
+function editItem(name) {
+    let itemContents = document.querySelectorAll('.itemContent');
+    let newText = prompt("입력하세요");
+    itemContents[name].innerHTML = newText;
 }
 
 function doneItem() {
@@ -74,6 +80,8 @@ function doneItem() {
     }))
 }
 
+
+//개수 수정
 function checkCount() {
     let contiCount = 0;
     let endCount = 0;
