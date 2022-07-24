@@ -10,6 +10,9 @@
     /* size */
     --size-header: 60px;
     --size-button: 50px;
+
+    --size-mini-header: 50px;
+    --size-mini-button: 55px;
     
     --padding-header: 20px;
     --padding-add: 15px;
@@ -153,5 +156,24 @@ header i {
     .add .addBtn{
         width: 20%;
         padding: 10px;
+    }
+}
+@media screen and (max-width: 400px) {
+    header {
+        font-size: var(--size-mini-header);
+    }
+    .count button{
+        font-size: 12px;
+        height: var(--size-mini-button);
+        width: 60px;
+    }
+    .count div{
+        font-size: 13px;
+    }
+    .item {
+        font-size: 13px;
+    }
+    .item button {
+        font-size: 15px;
     }
 }
