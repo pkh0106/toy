@@ -1,0 +1,156 @@
+:root {
+    /* Color */
+    --color-green: #94B49f;
+    --color-light-green: #CEE5D0;
+    --color-cream: #FCF8E8;
+    --color-orange: #ECB390;
+    --color-black: #505050;
+    --color-white: #ffffff;
+
+    /* size */
+    --size-header: 60px;
+    --size-button: 50px;
+    
+    --padding-header: 20px;
+    --padding-add: 15px;
+
+    --border-radius: 5px;
+
+    --annimation-duration: 250ms;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--color-light-green);
+    color: var(--color-black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    border: none;
+    background-color: var(--color-cream);
+}
+
+/* 타이틀 */
+header {
+    background-color: var(--color-green);
+    font-size: var(--size-header);
+    font-family: 'Cairo';
+    width: 100%;
+    text-align: center;
+    padding: var(--padding-header);
+}
+header i {
+    margin-right: 5px;
+}
+
+
+/* 추가 */
+.add {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: var(--padding-header);
+    width: 100%;
+    
+}
+.add input,
+.add .addBtn {
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--padding-add);
+}
+.add input{
+    width: 50%;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.add .addBtn {
+    font-family: 'Hahmlet', serif;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: transform var(--annimation-duration) ease; 
+}
+.add .addBtn:hover {
+    transform: scale(1.05);
+} 
+
+
+/* 개수 */
+.count{
+    display: flex;
+    width: 70%;
+    justify-content: space-around;
+}
+.count button{
+    font-family: 'Hahmlet', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: var(--size-button);
+    width: calc(var(--size-button)*2);
+    border-radius: var(--border-radius);
+}
+.count div {
+    font-size: 15px;
+    font-weight: bolder;
+    padding: 2px;
+}
+
+
+/* 목록 */
+.items {
+    width: 65%;
+    height: 50%;
+    overflow-y: scroll;
+}
+.items::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+.item {
+    background-color: var(--color-cream);
+    border-radius: var(--border-radius);
+    display: flex;
+    padding: var(--padding-add);
+    margin-bottom: 4px;
+    
+}
+.item button{
+    color: var(--color-orange);
+    flex: 1 1 10%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform var(--annimation-duration) ease; 
+}
+.item button:hover{
+    transform: scale(1.2);
+}
+.item .doneBtn{
+    cursor: pointer;
+    flex: 1 1 10%;
+    margin-right: 10px;
+}
+.item .itemContent{
+    font-family: 'Hahmlet', serif;
+    flex: 1 1 70%;
+}
+
+@media screen and (max-width: 768px) {
+    .add {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .add input{
+        width: 65%;
+        margin-bottom: 5px;
+        font-size: 17px;
+    }
+    .add .addBtn{
+        width: 20%;
+        padding: 10px;
+    }
+}

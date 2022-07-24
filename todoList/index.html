@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 인용 사이트 -->
+    <script src="https://kit.fontawesome.com/7bd779393b.js" 
+    crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&family=Hahmlet:wght@200&display=swap" rel="stylesheet">
+    <title>todoList</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <i class="fa-solid fa-list"></i>
+        <span class="title">todo_List</span>
+    </header>
+
+    <!-- 할 일 추가-->
+    <div class="add">
+        <input type="text" placeholder="todo를 입력하세요😶" class="addTxt">
+        <button class="addBtn">ADD</button>
+    </div>
+
+    <!-- 개수 -->
+    <div class="count">
+        <button class="all">
+            <div class="listType">전체</div>
+            <span class="allValue">0</span>
+        </button>
+        <button class="continue">
+            <div class="listType">진행 중</div>
+            <span class="contiValue">0</span>
+        </button>
+        <button class="end">
+            <div class="listType">완료</div>
+            <span class="endValue">0</span>
+        </button>
+    </div>
+
+    <!-- 목록 -->
+    <ul class="items"></ul>
+</body>
+</html>
