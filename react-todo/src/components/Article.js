@@ -1,41 +1,14 @@
 import { useState } from "react";
-import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
+import InsertTap from "./InsertTap";
+import ConditionBtns from "./ConditionBtns";
+import ContextList from "./ContextList";
 
 function Article() {
   const [all, setAll] = useState(0);
   const [conti, setConti] = useState(0);
   const [end, setEnd] = useState(0);
-  const [nextId, setnextId] = useState(3);
+  const [nextId, setnextId] = useState(0);
   const [lists, setLists] = useState([]);
-
-  function Button(props) {
-    return (
-      <button>
-        <div>{props.title}</div>
-        <span>{props.value}</span>
-      </button>
-    );
-  }
-
-  function List(props) {
-    const lis = [];
-    for (let i = 0; i < props.list.length; i++) {
-      const t = props.list[i];
-      lis.push(
-        <li key={t.id}>
-          <input type="checkbox" onChange={onDone} />
-          <span>{t.context}</span>
-          <button onClick={onEdit}>EDIT</button>
-          <button onClick={onDelete}>DEL</button>
-        </li>
-      );
-    }
-    return (
-      <nav>
-        <ul>{lis}</ul>
-      </nav>
-    );
-  }
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -45,22 +18,26 @@ function Article() {
     newLists.push(newList);
     setLists(newLists);
 
-    setAll(all + 1);
-    setConti(conti + 1);
     setnextId(nextId + 1);
     event.target.newContext.value = "";
+    changeCondition();
   };
+
   const onDone = (event) => {
     const node = event.target.parentNode;
-    if (event.target.checked == true) {
-      node.childNodes[1].style.textDecoration = "line-through";
-      node.childNodes[2].style.display = "none";
-      setConti(conti - 1);
-      setEnd(end - 1);
-    } else {
-      node.childNodes[1].style.textDecoration = "none";
-      node.childNodes[2].style.display = "";
+    node.childNodes[1].style.textDecoration = "line-through";
+    node.childNodes[2].style.display = "none";
+    event.target.disabled = "true";
+    const newLists = [...lists];
+    for (let i = 0; i < lists.length; i++) {
+      if (node.childNodes[1].innerHTML === lists[i].context) {
+        const updatedList = { id: i, context: lists[i].context, done: true };
+        newLists[i] = updatedList;
+        break;
+      }
     }
+    setLists(newLists);
+    changeCondition();
   };
 
   const onEdit = (event) => {
@@ -70,7 +47,7 @@ function Article() {
     const newLists = [...lists];
     for (let i = 0; i < lists.length; i++) {
       if (editContext === lists[i].context) {
-        const updatedList = { id: i, context: newText };
+        const updatedList = { id: i, context: newText, done: false };
         newLists[i] = updatedList;
         break;
       }
@@ -87,25 +64,35 @@ function Article() {
         newLists.push(lists[i]);
       }
     }
+
     setLists(newLists);
+    changeCondition();
+  };
+
+  const changeCondition = () => {
+    let allValue = 0;
+    let contiValue = 0;
+    let endValue = 0;
+    allValue = lists.length;
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].done ? endValue++ : contiValue++;
+    }
+
+    setAll(allValue);
+    setConti(contiValue);
+    setEnd(endValue);
   };
 
   return (
     <article>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="newContext"
-          placeholder="todo를 입력하세요😶"
-        ></input>
-        <input type="submit" value="ADD"></input>
-      </form>
-      <div>
-        <Button title="전체" value={all}></Button>
-        <Button title="진행 중" value={conti}></Button>
-        <Button title="완료" value={end}></Button>
-      </div>
-      <List list={lists} />
+      <InsertTap onSubmit={onSubmit}></InsertTap>
+      <ConditionBtns all={all} conti={conti} end={end}></ConditionBtns>
+      <ContextList
+        list={lists}
+        onDone={onDone}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
     </article>
   );
 }
